@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export default function SendMessageToUserInGroupForm() {
-  const [message, setMessage] = useState('Tác giả Lương Khoa !');
+  const [message, setMessage] = useState('Đang có capcha nhanh nhanh vào !');
   const [userId, setUserId] = useState('');
   const [response, setResponse] = useState(null);
 
@@ -51,7 +51,7 @@ export default function SendMessageToUserInGroupForm() {
           className='border text-center px-4 py-4 rounded-md border-dashed border-black w-[320px]'
         />
         <button className='bg-sky-600 hover:bg-red-500 duration-200 font-bold h-[60px] text-white py-2 rounded-md' type="submit">Thông báo</button>
-        <code className='text-center'>{message}</code>
+        <code className='text-center'>{'Tác giả Lương Khoa !'}</code>
       </form>
       {response && (
         <div>
