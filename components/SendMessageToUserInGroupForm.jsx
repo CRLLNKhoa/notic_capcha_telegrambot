@@ -1,9 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function SendMessageToUserInGroupForm() {
-  const [message, setMessage] = useState('Đang có capcha !');
+  const [message, setMessage] = useState('Tác giả Lương Khoa !');
   const [userId, setUserId] = useState('');
   const [response, setResponse] = useState(null);
+
+  useEffect(() => {
+    // Lấy dữ liệu từ LocalStorage khi component được render
+    const storedData = localStorage.getItem('username_notic');
+    if (storedData) {
+      setUserId(storedData);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Lưu dữ liệu vào LocalStorage khi inputValue thay đổi
+    localStorage.setItem('username_notic', userId);
+  }, [userId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,22 +51,14 @@ export default function SendMessageToUserInGroupForm() {
           className='border text-center px-4 py-4 rounded-md border-dashed border-black w-[320px]'
         />
         <button className='bg-sky-600 hover:bg-red-500 duration-200 font-bold h-[60px] text-white py-2 rounded-md' type="submit">Thông báo</button>
-        <input
-          type="text"
-          placeholder="Tác giả Lương Khoa"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          required
-          disabled
-          className='text-center'
-        />
+        <code className='text-center'>{message}</code>
       </form>
       {response && (
         <div>
           {response.error ? (
             <p className='text-center'>Error: {response.error}</p>
           ) : (
-            <p className='text-center'>Message sent: {JSON.stringify(response)}</p>
+            <code className='text-center text-red-500'>Đã gửi thông báo !</code>
           )}
         </div>
       )}
